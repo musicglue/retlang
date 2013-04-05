@@ -22,5 +22,10 @@ namespace Retlang.Core
         /// Stop consuming actions.
         /// </summary>
         void Stop();
+
+        /// <summary>
+        /// Number of actions in the queue. 
+        /// </summary>
+        int Size { get; }
     }
 }

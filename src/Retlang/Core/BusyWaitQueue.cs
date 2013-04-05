@@ -73,8 +73,22 @@ namespace Retlang.Core
                 Monitor.PulseAll(_lock);
             }
         }
-        
-        private List<Action> DequeueAll()
+
+        /// <summary>
+        /// Number of actions in the queue. 
+        /// </summary>
+	    public int Size
+	    {
+		    get
+		    {
+			    lock (_lock)
+			    {
+				    return _actions.Count;
+			    }
+		    }
+	    }
+
+	    private List<Action> DequeueAll()
         {
             var spins = 0;
             var stopwatch = Stopwatch.StartNew();

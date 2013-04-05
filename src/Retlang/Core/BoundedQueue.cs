@@ -81,7 +81,21 @@ namespace Retlang.Core
             }
         }
 
-        private bool SpaceAvailable(int toAdd)
+        /// <summary>
+        /// Number of actions in the queue. 
+        /// </summary>
+	    public int Size
+	    {
+		    get
+		    {
+			    lock (_lock)
+			    {
+				    return _actions.Count;
+			    }
+		    }
+	    }
+
+	    private bool SpaceAvailable(int toAdd)
         {
             if (!_running)
             {

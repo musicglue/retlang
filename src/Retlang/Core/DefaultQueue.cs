@@ -67,7 +67,21 @@ namespace Retlang.Core
             }
         }
 
-        private List<Action> DequeueAll()
+        /// <summary>
+        /// Number of actions in the queue. 
+        /// </summary>
+	    public int Size
+	    {
+		    get
+		    {
+			    lock (_lock)
+			    {
+				    return _actions.Count;
+			    }
+		    }
+	    }
+
+	    private List<Action> DequeueAll()
         {
             lock (_lock)
             {
