@@ -121,6 +121,7 @@
     <Compile Include="Fibers\ExecutionState.cs" />
     <Compile Include="Fibers\FormFiber.cs" />
     <Compile Include="Fibers\IFiber.cs" />
+    <Compile Include="Fibers\ParallelPoolFiber.cs" />
     <Compile Include="Fibers\PoolFiber.cs" />
     <Compile Include="Fibers\StubFiber.cs" />
     <Compile Include="Fibers\StubScheduledAction.cs" />
