@@ -16,7 +16,7 @@ namespace Retlang.Fibers
         private readonly IExecutionContext _executionContext;
         private readonly Scheduler _timer;
         private readonly IExecutor _executor;
-        private readonly List<Action> _queue = new List<Action>();
+        private readonly Queue<Action> _queue = new Queue<Action>();
 
         private volatile ExecutionState _started = ExecutionState.Created;
 
@@ -47,7 +47,7 @@ namespace Retlang.Fibers
                 {
                     if (_started == ExecutionState.Created)
                     {
-                        _queue.Add(action);
+                        _queue.Enqueue(action);
                         return;
                     }
                 }
@@ -115,7 +115,7 @@ namespace Retlang.Fibers
                 _queue.Clear();
                 if (actions.Count > 0)
                 {
-                    _executionContext.Enqueue(() => _executor.Execute(actions));
+                    _executionContext.Enqueue(() => _executor.Execute(new Queue<Action>(actions)));
                 }
                 _started = ExecutionState.Running;
             }

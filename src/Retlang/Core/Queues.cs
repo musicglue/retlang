@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Retlang.Core
 {
-    internal static class Lists
+    internal static class Queues
     {
-        public static void Swap(ref List<Action> a, ref List<Action> b)
+        public static void Swap(ref Queue<Action> a, ref Queue<Action> b)
         {
             var tmp = a;
             a = b;

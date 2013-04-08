@@ -17,8 +17,8 @@ namespace Retlang.Core
 
         private bool _running = true;
 
-        private List<Action> _actions = new List<Action>();
-        private List<Action> _toPass = new List<Action>();
+        private Queue<Action> _actions = new Queue<Action>();
+        private Queue<Action> _toPass = new Queue<Action>();
 
         ///<summary>
         /// BusyWaitQueue with custom executor.
@@ -49,7 +49,7 @@ namespace Retlang.Core
         {
             lock (_lock)
             {
-                _actions.Add(action);
+                _actions.Enqueue(action);
                 Monitor.PulseAll(_lock);
             }
         }
@@ -83,12 +83,12 @@ namespace Retlang.Core
 		    {
 			    lock (_lock)
 			    {
-				    return _actions.Count;
+				    return _actions.Count + _toPass.Count;
 			    }
 		    }
 	    }
 
-	    private List<Action> DequeueAll()
+	    private Queue<Action> DequeueAll()
         {
             var spins = 0;
             var stopwatch = Stopwatch.StartNew();
@@ -138,11 +138,11 @@ namespace Retlang.Core
             return false;
         }
 
-        private List<Action> TryDequeue()
+        private Queue<Action> TryDequeue()
         {
             if (_actions.Count > 0)
             {
-                Lists.Swap(ref _actions, ref _toPass);
+                Queues.Swap(ref _actions, ref _toPass);
                 _actions.Clear();
                 return _toPass;
             }

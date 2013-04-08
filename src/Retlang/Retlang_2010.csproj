@@ -111,7 +111,7 @@
     <Compile Include="Core\PendingAction.cs" />
     <Compile Include="Core\QueueFullException.cs" />
     <Compile Include="Core\RecurringEvent.cs" />
-    <Compile Include="Core\Lists.cs" />
+    <Compile Include="Core\Queues.cs" />
     <Compile Include="Core\SingleEvent.cs" />
     <Compile Include="Core\TimerAction.cs" />
     <Compile Include="Fibers\DispatcherAdapter.cs" />

@@ -14,8 +14,8 @@ namespace Retlang.Core
 
         private bool _running = true;
 
-        private List<Action> _actions = new List<Action>();
-        private List<Action> _toPass = new List<Action>();
+        private Queue<Action> _actions = new Queue<Action>();
+        private Queue<Action> _toPass = new Queue<Action>();
 
         ///<summary>
         /// Default queue with custom executor
@@ -42,7 +42,7 @@ namespace Retlang.Core
         {
             lock (_lock)
             {
-                _actions.Add(action);
+                _actions.Enqueue(action);
                 Monitor.PulseAll(_lock);
             }
         }
@@ -70,24 +70,24 @@ namespace Retlang.Core
         /// <summary>
         /// Number of actions in the queue. 
         /// </summary>
-	    public int Size
-	    {
-		    get
-		    {
-			    lock (_lock)
-			    {
-				    return _actions.Count;
-			    }
-		    }
-	    }
+        public int Size
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    return _actions.Count + _toPass.Count;
+                }
+            }
+        }
 
-	    private List<Action> DequeueAll()
+        private Queue<Action> DequeueAll()
         {
             lock (_lock)
             {
                 if (ReadyToDequeue())
                 {
-                    Lists.Swap(ref _actions, ref _toPass);
+                    Queues.Swap(ref _actions, ref _toPass);
                     _actions.Clear();
                     return _toPass;
                 }

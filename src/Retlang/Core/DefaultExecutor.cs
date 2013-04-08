@@ -14,12 +14,10 @@ namespace Retlang.Core
         /// Executes all actions.
         /// </summary>
         /// <param name="toExecute"></param>
-        public void Execute(List<Action> toExecute)
+        public void Execute(Queue<Action> toExecute)
         {
-            foreach (var action in toExecute)
-            {
-                Execute(action);
-            }
+            while(toExecute.Count > 0)
+                Execute(toExecute.Dequeue());
         }
 
         ///<summary>

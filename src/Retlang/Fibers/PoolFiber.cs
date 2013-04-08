@@ -16,8 +16,8 @@ namespace Retlang.Fibers
         private readonly Scheduler _timer;
         private readonly IExecutor _executor;
 
-        private List<Action> _queue = new List<Action>();
-        private List<Action> _toPass = new List<Action>();
+        private Queue<Action> _queue = new Queue<Action>();
+        private Queue<Action> _toPass = new Queue<Action>();
 
         private ExecutionState _started = ExecutionState.Created;
         private bool _flushPending;
@@ -63,7 +63,7 @@ namespace Retlang.Fibers
 
             lock (_lock)
             {
-                _queue.Add(action);
+                _queue.Enqueue(action);
                 if (_started == ExecutionState.Created)
                 {
                     return;
@@ -124,7 +124,7 @@ namespace Retlang.Fibers
             }
         }
 
-        private List<Action> ClearActions()
+        private Queue<Action> ClearActions()
         {
             lock (_lock)
             {
@@ -133,9 +133,23 @@ namespace Retlang.Fibers
                     _flushPending = false;
                     return null;
                 }
-                Lists.Swap(ref _queue, ref _toPass);
+                Queues.Swap(ref _queue, ref _toPass);
                 _queue.Clear();
                 return _toPass;
+            }
+        }
+
+        /// <summary>
+        /// Gets the queue size
+        /// </summary>
+        public int QueueSize
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    return _queue.Count + _toPass.Count;
+                }
             }
         }
 

@@ -10,7 +10,7 @@ namespace RetlangTests
 {
     public class PerfExecutor : IExecutor
     {
-        public void Execute(List<Action> toExecute)
+        public void Execute(Queue<Action> toExecute)
         {
             foreach (var action in toExecute)
             {

@@ -12,7 +12,7 @@ namespace Retlang.Core
         /// Executes all actions.
         /// </summary>
         /// <param name="toExecute"></param>
-        void Execute(List<Action> toExecute);
+        void Execute(Queue<Action> toExecute);
 
         ///<summary>
         /// Executes a single action. 
