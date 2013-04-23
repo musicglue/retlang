@@ -10,17 +10,17 @@ namespace Retlang.Fibers
     /// </summary>
     public class PoolFiber : IFiber
     {
-        private readonly Subscriptions _subscriptions = new Subscriptions();
-        private readonly object _lock = new object();
-        private readonly IThreadPool _pool;
-        private readonly Scheduler _timer;
-        private readonly IExecutor _executor;
+        protected readonly Subscriptions _subscriptions = new Subscriptions();
+        protected readonly object _lock = new object();
+        protected readonly IThreadPool _pool;
+        protected readonly Scheduler _timer;
+        protected readonly IExecutor _executor;
 
-        private Queue<Action> _queue = new Queue<Action>();
-        private Queue<Action> _toPass = new Queue<Action>();
+        protected Queue<Action> _queue = new Queue<Action>();
+        protected Queue<Action> _toPass = new Queue<Action>();
 
-        private ExecutionState _started = ExecutionState.Created;
-        private bool _flushPending;
+        protected ExecutionState _started = ExecutionState.Created;
+        protected bool _flushPending;
 
         /// <summary>
         /// Construct new instance.

@@ -6,7 +6,7 @@ namespace Retlang.Core
     /// <summary>
     /// Registry for subscriptions. Provides thread safe methods for list of subscriptions.
     /// </summary>
-    internal class Subscriptions : IDisposable
+    public class Subscriptions : IDisposable
     {
         private readonly object _lock = new object();
         private readonly List<IDisposable> _items = new List<IDisposable>();

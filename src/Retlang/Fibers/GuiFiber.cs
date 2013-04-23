@@ -11,14 +11,14 @@ namespace Retlang.Fibers
     ///</summary>
     public class GuiFiber : IFiber
     {
-        private readonly Subscriptions _subscriptions = new Subscriptions();
-        private readonly object _lock = new object();
-        private readonly IExecutionContext _executionContext;
-        private readonly Scheduler _timer;
-        private readonly IExecutor _executor;
-        private readonly Queue<Action> _queue = new Queue<Action>();
+        protected readonly Subscriptions _subscriptions = new Subscriptions();
+        protected readonly object _lock = new object();
+        protected readonly IExecutionContext _executionContext;
+        protected readonly Scheduler _timer;
+        protected readonly IExecutor _executor;
+        protected readonly Queue<Action> _queue = new Queue<Action>();
 
-        private volatile ExecutionState _started = ExecutionState.Created;
+        protected volatile ExecutionState _started = ExecutionState.Created;
 
         /// <summary>
         /// Creates an instance.

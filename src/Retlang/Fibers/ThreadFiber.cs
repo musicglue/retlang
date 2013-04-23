@@ -10,12 +10,12 @@ namespace Retlang.Fibers
     /// </summary>
     public class ThreadFiber : IFiber
     {
-        private static int THREAD_COUNT;
-        private readonly Subscriptions _subscriptions = new Subscriptions();
+        protected static int THREAD_COUNT;
+        protected readonly Subscriptions _subscriptions = new Subscriptions();
 
-        private readonly Thread _thread;
-        private readonly IQueue _queue;
-        private readonly Scheduler _scheduler;
+        protected readonly Thread _thread;
+        protected readonly IQueue _queue;
+        protected readonly Scheduler _scheduler;
 
         /// <summary>
         /// Create a thread fiber with the default queue.
